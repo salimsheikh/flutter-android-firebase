@@ -1,7 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase/ui/auth/signup_screen.dart';
 import 'package:flutter_firebase/widgets/round_button.dart';
+
+import '../../utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,6 +57,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (value!.isEmpty) {
                         return 'Enter email.';
                       }
+
+                      if (!EmailValidator.validate(value)) {
+                        return 'Enter valid email.';
+                      }
                       return null;
                     },
                   ),
@@ -79,7 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   RoundButton(
                     title: "Login",
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        Utils().toastSuccessMessage(
+                            "Please cotact to site admin.");
+                      }
                     },
                   ),
                   const SizedBox(height: 30),
