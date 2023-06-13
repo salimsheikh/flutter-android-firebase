@@ -9,7 +9,7 @@ class SplashServices {
   void isLogin(BuildContext context) {
     final auth = FirebaseAuth.instance;
     final user = auth.currentUser;
-    debugPrint(user.toString());
+    //debugPrint(user.toString());
     if (user != null) {
       Timer(
         const Duration(seconds: 3),
