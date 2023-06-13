@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_firebase/ui/auth/signup_screen.dart';
+import 'package:flutter_firebase/ui/posts/post_screen.dart';
 import 'package:flutter_firebase/widgets/round_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../utils/utils.dart';
 
@@ -14,9 +16,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
@@ -24,6 +29,38 @@ class _LoginScreenState extends State<LoginScreen> {
     emailController.dispose();
     passwordController.dispose();
   }
+
+  void login() async {
+    try {
+      setState(() {
+        loading = true;
+      });
+      await _auth
+          .signInWithEmailAndPassword(
+              email: emailController.text.toString(),
+              password: passwordController.text.toString())
+          .then((value) => {
+                setState(() {
+                  loading = false;
+                  debugPrint(value.user!.email.toString());
+                  Utils().toastSuccessMessage("Succssfully login");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PostScreen(),
+                    ),
+                  );
+                })
+              });
+
+      //.onError((error, stackTrace) { Utils().toastMessage(error.toString());});
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        loading = false;
+      });
+      Utils().toastMessage(e.message.toString());
+    }
+  } /*Login Method End */
 
   @override
   Widget build(BuildContext context) {
@@ -79,16 +116,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (value!.isEmpty) {
                         return 'Enter password.';
                       }
+                      if (value.length < 6) {
+                        return 'Enter 6 character passwrod.';
+                      }
                       return null;
                     },
                   ),
                   const SizedBox(height: 50),
                   RoundButton(
                     title: "Login",
+                    loading: loading,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        Utils().toastSuccessMessage(
-                            "Please cotact to site admin.");
+                        login();
                       }
                     },
                   ),
