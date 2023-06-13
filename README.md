@@ -25,5 +25,27 @@ fluttertoast: ^8.0.9
 
 # Tutorials
 
-Part-9 Check If Use is already Login/Logout
-[Part-9](https://www.youtube.com/watch?v=rHimRmRZE_o&list=PLFyjjoCMAPtxS6Cx1XSjCfxOxHQ4_e0sL&index=9)
+Part - 10 | Flutter Firebase Phone Authentication
+[Part-10](https://www.youtube.com/watch?v=0XtvU90Lfh0&list=PLFyjjoCMAPtxS6Cx1XSjCfxOxHQ4_e0sL&index=10)
+
+# Go to the project folder in the terminal.
+
+Mac command: keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+Windows command: keytool -list -v -keystore "C:\Users\bilal\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+
+Linux keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+[Getting SHA1 key for a Windows System](https://teamtreehouse.com/community/guide-getting-sha1-key-for-a-windows-system)
+
+1. Open Command Prompt by pressing Start+R and typing cmd.exe.
+
+2. Using Windows Explorer, find where your JDK directory is located (Usually Program Files >> Java) and copy the path.
+
+3. In Command Prompt, type cd followed by the directory of your JDK’s bin directory. e.g: cd C:\Program Files\Java\jdk1.8.0_25\bin is the command I use (Yours may vary).
+
+4. Using Windows Explorer, find where your .android directory is located (Usually under Users >> [YOUR WINDOWS USERNAME]) and copy the path.
+
+5. Now, use this command below:
+
+Windows command: keytool -list -v -keystore "C:\Users\bilal\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android

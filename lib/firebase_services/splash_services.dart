@@ -7,9 +7,9 @@ import 'package:flutter_firebase/ui/posts/post_screen.dart';
 
 class SplashServices {
   void isLogin(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
-    final user = _auth.currentUser;
-
+    final auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    debugPrint(user.toString());
     if (user != null) {
       Timer(
         const Duration(seconds: 3),
