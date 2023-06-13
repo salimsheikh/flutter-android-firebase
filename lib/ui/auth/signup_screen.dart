@@ -83,6 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   if (value.length < 6) {
                     return 'Enter 6 character passwrod.';
                   }
+
                   return null;
                 },
               ),
